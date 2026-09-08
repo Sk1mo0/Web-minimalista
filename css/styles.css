@@ -1,0 +1,402 @@
+/* ==========================================================================
+   MINIMALISMO — Landing Page
+   Filosofía visual: mucho espacio en blanco, paleta reducida, tipografía
+   protagonista, cuadrícula estricta, sin ornamento. "Menos es más."
+   ========================================================================== */
+
+:root{
+  --bg:            #f4f2ee;
+  --bg-alt:        #ebe8e1;
+  --ink:           #161513;
+  --ink-soft:      #55524b;
+  --line:          #cfcabf;
+  --accent:        #b3261e; /* rojo plexiglás, único acento de color */
+  --accent-soft:   #b3261e1a;
+  --max-w:         1180px;
+  --gap:           clamp(1.25rem, 3vw, 2.5rem);
+  --section-pad:   clamp(4rem, 10vw, 8rem);
+  --font-display:  'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:     'Archivo Narrow', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* -------------------------------------------------------------------- */
+/* Reset                                                                  */
+/* -------------------------------------------------------------------- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img{ max-width: 100%; display: block; }
+ul, ol{ margin: 0; padding: 0; list-style: none; }
+a{ color: inherit; text-decoration: none; }
+h1, h2, h3{ font-family: var(--font-display); font-weight: 500; margin: 0; }
+p{ margin: 0; }
+
+.skip-link{
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--bg); padding: .75rem 1.25rem; z-index: 999;
+}
+.skip-link:focus{ left: 1rem; top: 1rem; }
+
+/* -------------------------------------------------------------------- */
+/* Header / navegación                                                   */
+/* -------------------------------------------------------------------- */
+.site-header{
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(244,242,238,0.92);
+  backdrop-filter: saturate(140%) blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner{
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 1.1rem clamp(1.25rem, 4vw, 2.5rem);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo{
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .12em;
+  font-weight: 700;
+}
+.logo-dot{ color: var(--accent); }
+
+.site-nav ul{ display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); }
+.site-nav a{
+  font-size: .85rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease, color .2s ease;
+}
+.site-nav a:hover, .site-nav a:focus-visible{ border-color: var(--accent); }
+
+.menu-toggle{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px; height: 34px;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.menu-toggle span{
+  display: block; height: 1.5px; width: 100%;
+  background: var(--ink); transition: transform .25s ease, opacity .25s ease;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
+.menu-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-6.5px) rotate(-45deg); }
+
+/* -------------------------------------------------------------------- */
+/* Hero                                                                   */
+/* -------------------------------------------------------------------- */
+.hero{
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(5rem, 16vw, 10rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4rem, 10vw, 7rem);
+  text-align: center;
+}
+.hero-eyebrow{
+  font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 1.5rem;
+}
+.hero-title{
+  font-size: clamp(3.5rem, 13vw, 9rem);
+  letter-spacing: -0.02em;
+  line-height: .95;
+  font-weight: 300;
+}
+.hero-phrase{
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 2.5rem;
+}
+.hero-phrase-author{
+  margin-top: .5rem;
+  font-size: .85rem;
+  letter-spacing: .05em;
+  color: var(--ink-soft);
+}
+.hero-line{
+  width: 1px; height: 64px;
+  background: var(--line);
+  margin: 3rem auto;
+}
+.hero-sub{
+  color: var(--ink-soft);
+  font-size: 1rem;
+  letter-spacing: .02em;
+}
+
+/* -------------------------------------------------------------------- */
+/* Secciones genéricas                                                    */
+/* -------------------------------------------------------------------- */
+.section{
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--section-pad) clamp(1.25rem, 4vw, 2.5rem);
+}
+.section-alt{ max-width: none; background: var(--bg-alt); }
+.section-alt > *{ max-width: var(--max-w); margin-left: auto; margin-right: auto; }
+.section-alt > .grid-caracteristicas,
+.section-alt > .grid-influencia,
+.section-alt > .filtros,
+.section-alt > .grid-obras{ max-width: var(--max-w); margin-left: auto; margin-right: auto; }
+
+.section-head{
+  display: flex; align-items: baseline; gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.5rem;
+}
+.section-index{
+  font-size: .85rem; color: var(--ink-soft); letter-spacing: .08em;
+}
+.section-head h2{
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+}
+.section-note{
+  flex-basis: 100%;
+  margin-top: .5rem;
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+
+.prose{ max-width: 66ch; display: flex; flex-direction: column; gap: 1.4rem; font-size: 1.05rem; }
+.prose p{ color: var(--ink); }
+
+/* -------------------------------------------------------------------- */
+/* Características                                                       */
+/* -------------------------------------------------------------------- */
+.grid-caracteristicas{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.card-caracteristica{
+  background: var(--bg-alt);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  display: flex; flex-direction: column; gap: .85rem;
+}
+.card-caracteristica .num{
+  font-family: var(--font-display);
+  font-size: .85rem;
+  color: var(--accent);
+  letter-spacing: .1em;
+}
+.card-caracteristica h3{ font-size: 1.15rem; font-weight: 500; }
+.card-caracteristica p{ color: var(--ink-soft); font-size: .96rem; }
+
+/* -------------------------------------------------------------------- */
+/* Exponentes                                                             */
+/* -------------------------------------------------------------------- */
+.artista{
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+.artista:last-child{ border-bottom: none; }
+.artista-reverse .artista-media{ order: 2; }
+.artista-reverse .artista-info{ order: 1; }
+.artista-media img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.artista-anos{
+  font-size: .85rem; letter-spacing: .08em; color: var(--ink-soft);
+  margin-bottom: .4rem;
+}
+.artista-info h3{
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 400;
+  margin-bottom: 1.1rem;
+}
+.artista-info p{ margin-bottom: 1rem; color: var(--ink); font-size: .98rem; }
+.artista-info p:last-child{ margin-bottom: 0; }
+.artista-info strong{ font-weight: 600; }
+
+/* -------------------------------------------------------------------- */
+/* Obras representativas                                                  */
+/* -------------------------------------------------------------------- */
+.filtros{
+  display: flex; flex-wrap: wrap; gap: .6rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.filtro{
+  font-family: var(--font-body);
+  font-size: .85rem; letter-spacing: .03em; text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  padding: .55rem 1.1rem;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.filtro:hover{ border-color: var(--ink); color: var(--ink); }
+.filtro.activo{ background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.grid-obras{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.obra{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.obra.visible{ opacity: 1; transform: translateY(0); }
+.obra.oculto{ display: none; }
+.obra img{ width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-bottom: 1px solid var(--line); }
+.obra-info{ padding: 1.25rem 1.4rem 1.5rem; }
+.obra-info h3{ font-size: 1.02rem; font-weight: 500; margin-bottom: .3rem; }
+.obra-meta{
+  font-size: .78rem; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .6rem;
+}
+.obra-info p:last-child{ color: var(--ink-soft); font-size: .92rem; }
+
+/* -------------------------------------------------------------------- */
+/* Línea del tiempo                                                       */
+/* -------------------------------------------------------------------- */
+.timeline{
+  position: relative;
+  border-left: 1px solid var(--line);
+  padding-left: clamp(1.5rem, 4vw, 3rem);
+  display: flex; flex-direction: column; gap: clamp(2rem, 4vw, 3rem);
+}
+.timeline-item{ position: relative; }
+.timeline-item::before{
+  content: '';
+  position: absolute;
+  left: calc(-1 * clamp(1.5rem, 4vw, 3rem) - 5px);
+  top: .4rem;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.timeline-year{
+  font-family: var(--font-display);
+  font-size: .85rem; letter-spacing: .06em;
+  color: var(--ink-soft);
+  margin-bottom: .35rem;
+}
+.timeline-content h3{ font-size: 1.15rem; font-weight: 500; margin-bottom: .5rem; }
+.timeline-content p{ color: var(--ink); max-width: 62ch; font-size: .98rem; }
+
+/* -------------------------------------------------------------------- */
+/* Influencia actual                                                      */
+/* -------------------------------------------------------------------- */
+.grid-influencia{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.card-influencia{
+  background: var(--bg-alt);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+}
+.card-influencia h3{
+  font-size: 1.05rem; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; margin-bottom: .75rem;
+}
+.card-influencia p{ color: var(--ink-soft); font-size: .95rem; }
+
+/* -------------------------------------------------------------------- */
+/* Footer                                                                 */
+/* -------------------------------------------------------------------- */
+.site-footer{
+  border-top: 1px solid var(--line);
+  padding: 2.5rem clamp(1.25rem, 4vw, 2.5rem);
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: .85rem;
+  display: flex; flex-direction: column; gap: .4rem;
+}
+
+/* -------------------------------------------------------------------- */
+/* Animaciones de entrada al hacer scroll                                 */
+/* -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .obra{ opacity: 1; transform: none; transition: none; }
+}
+
+/* ======================================================================
+   RESPONSIVE — Tablet (≤1024px) y Celular (≤480px)
+   Sin scroll horizontal en ningún punto de quiebre.
+   ====================================================================== */
+
+@media (max-width: 1024px){
+  .grid-caracteristicas,
+  .grid-influencia{ grid-template-columns: repeat(2, 1fr); }
+  .grid-obras{ grid-template-columns: repeat(2, 1fr); }
+  .artista{ grid-template-columns: 220px 1fr; }
+}
+
+@media (max-width: 768px){
+  body{ font-size: 16.5px; }
+
+  .menu-toggle{ display: flex; }
+  .site-nav{
+    position: fixed;
+    inset: 64px 0 auto 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .site-nav.abierto{
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  .site-nav ul{
+    flex-direction: column;
+    padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem) 2rem;
+    gap: 1.1rem;
+  }
+  .site-nav a{ font-size: 1rem; display: inline-block; }
+
+  .artista{ grid-template-columns: 1fr; }
+  .artista-media{ max-width: 260px; }
+  .artista-reverse .artista-media{ order: 0; }
+  .artista-reverse .artista-info{ order: 0; }
+}
+
+@media (max-width: 640px){
+  .grid-caracteristicas,
+  .grid-influencia,
+  .grid-obras{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px){
+  .hero{ padding-top: 4rem; }
+  .hero-title{ font-size: 3.2rem; }
+  .section{ padding-top: 3rem; padding-bottom: 3rem; }
+  .section-head{ flex-wrap: wrap; }
+  .filtros{ gap: .5rem; }
+  .filtro{ padding: .5rem .85rem; font-size: .78rem; }
+}
